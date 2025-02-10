@@ -1,9 +1,6 @@
-import os
 import random
-import sys
 
-def play_hangman():
-    stages = [r'''
+stages = [r'''
     +---+
     |   |
     O   |
@@ -27,7 +24,7 @@ def play_hangman():
         |
         |
     =========
-    ''', r'''
+    ''', '''
     +---+
     |   |
     O   |
@@ -61,23 +58,20 @@ def play_hangman():
     =========
     ''']
 
-    # Load word list from a local file
-    path = r'C:\Users\olueg\Documents\vs code\hangman\words'
-    assert os.path.isfile(path)
-    with open(path, "r") as f:
-        pass
+def main():
 
+    path = "words.txt"
+    with open(path) as f:
         word_list = f.read().splitlines()
+
     random_word = random.choice(word_list).lower()
 
     word_list = ["_" for _ in range(len(random_word))]
-    stage = 6
-    lives = 6
-
-    # existing code...
+    stage = 7
+    lives = 7
 
     while True:
-        guess = input("Guess a letter:").lower()
+        guess = input("Guess a letter: ").lower()
         if len(guess) != 1 or guess in word_list:
             print("Invalid input. Please enter a single letter that has not been guessed before.")
             continue
@@ -96,6 +90,7 @@ def play_hangman():
 
             if lives == 0:
                 print("You lose")
+                print(f'"{random_word}" was the correct word')
                 break
 
         print(' '.join(word_list))
@@ -103,5 +98,7 @@ def play_hangman():
 
         if not "_" in word_list:
             print("You win")
+            print(f'You guessed "{random_word}" correctly')
             break
-play_hangman()
+
+main()
